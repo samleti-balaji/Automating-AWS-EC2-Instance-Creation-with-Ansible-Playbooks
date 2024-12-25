@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Create EC2 instances
+    amazon.aws.ec2_instance:
+      name: "{{ item.name }}"
+      key_name: "target-ans"  # Replace with your key pair name
+      instance_type: t2.micro
+      security_group: default  # Replace with your security group
+      region: us-east-2  # Replace with your region
+      aws_access_key: "{{ ec2_access_key }}"  # From Vault
+      aws_secret_key: "{{ ec2_secret_key }}"  # From Vault
+      network:
+        assign_public_ip: true
+      image_id: "{{ item.image }}"
+    loop:
+      - { image: "ami-0b4624933067d393a", name: "ubuntu-node-1" }
+      - { image: "ami-0b4624933067d393a", name: "ubuntu-node-2" }
+      - { image: "ami-036841078a4b68e14", name: "centos-node-1" }
