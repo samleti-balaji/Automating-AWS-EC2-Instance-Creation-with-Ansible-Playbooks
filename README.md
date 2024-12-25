@@ -24,6 +24,8 @@ In this project, our playbook automates the creation of three EC2 instances on A
 
 To begin, we need an instance to act as the Ansible control node where the playbook will run. You can use any machine, but I used a Linux EC2 instance for this purpose.
 
+![image](https://github.com/user-attachments/assets/90e3a3da-2a30-4cf7-a492-6f8b0762e2f9)
+
 Once logged into the instance, follow these steps:
 
 **Update the system packages:**
@@ -53,6 +55,8 @@ The `pip3 install ansible` command fetches and installs Ansible.
 
 `ansible --version` confirms the installation and displays the installed version.
 
+![image](https://github.com/user-attachments/assets/57920906-3bdb-4d6a-a953-cfeeaa1d0d16)
+
 **Install Boto3:**
 
 ```bash
@@ -61,6 +65,8 @@ python3 -c "import boto3; print(boto3.__version__)"
 ```
 
 Boto3 is AWS's SDK for Python, enabling Ansible to interact with AWS services like EC2.
+
+![image](https://github.com/user-attachments/assets/62f611ab-3831-4aa2-815c-5aad68894352)
 
 **Why use Boto3?**
 
@@ -89,7 +95,11 @@ Open the `ansible-user` in IAM, go to the Security credentials tab, and create a
 
 Select the use case "Application running outside AWS" to generate the access key.
 
+![image](https://github.com/user-attachments/assets/df2968b0-0ae4-456f-8bcc-4ce37a955908)
+
 Download the Access Key ID and Secret Access Key.
+
+![image](https://github.com/user-attachments/assets/de9862cf-5124-4f5b-8b03-008f47d10fb1)
 
 **Step 3: Secure AWS Credentials with Ansible Vault**
 
@@ -103,6 +113,8 @@ openssl rand -base64 2048 > vault.pass
 
 This command generates a random password and saves it to `vault.pass`. The password will be used to encrypt and decrypt your data.
 
+![image](https://github.com/user-attachments/assets/61a068d3-5851-4a1d-b926-54fc007ec15b)
+
 **Store AWS Credentials in an Encrypted File**
 
 ```bash
@@ -112,6 +124,8 @@ ansible-vault create group_vars/all/pass.yml --vault-password-file vault.pass
 This creates an encrypted file named `pass.yml`.
 
 In the editor that opens, add the following credentials:
+
+![image](https://github.com/user-attachments/assets/bc19bb00-0662-438a-8257-99c7d48d96b7)
 
 **Edit the Vault File (if needed):**
 
@@ -165,6 +179,8 @@ Add the following content:
 - `image_id`: Specifies the Amazon Machine Image (AMI) for the operating system.
 - `aws_access_key` and `aws_secret_key`: Securely fetched from the Ansible Vault.
 
+![image](https://github.com/user-attachments/assets/db7f3a32-1ce1-430a-9a94-76795dcb688e)
+
 **Step 5: Execute the Playbook**
 
 Run the playbook using the following command:
@@ -179,12 +195,16 @@ This command:
 - Decrypts the Vault file to fetch AWS credentials.
 - Provisions the EC2 instances as defined in the playbook.
 
+![image](https://github.com/user-attachments/assets/666a44e0-9969-4d09-bdf4-2765becb1e78)
+
 **Testing and Verifying**
 
 After execution, navigate to the AWS EC2 Console to verify that the instances were successfully created. Look for three instances:
 
 - Two with Ubuntu.
 - One with CentOS.
+
+![image](https://github.com/user-attachments/assets/1aa5227e-9ed3-4817-8b4f-373af988ec46)
 
 **Conclusion**
 
