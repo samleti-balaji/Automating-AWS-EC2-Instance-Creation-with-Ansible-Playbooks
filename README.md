@@ -1,4 +1,4 @@
-# utomating-AWS-EC2-Instance-Creation-with-Ansible-Playbooks
+# Automating-AWS-EC2-Instance-Creation-with-Ansible-Playbooks
 
 Automating AWS EC2 Instance Creation with Ansible Loops
 Introduction
@@ -22,7 +22,7 @@ In this project, our playbook automates the creation of three EC2 instances on A
 Step 1: Set Up Your Ansible Control Node
 To begin, we need an instance to act as the Ansible control node where the playbook will run. You can use any machine, but I used a Linux EC2 instance for this purpose.
 
-
+![image](https://github.com/user-attachments/assets/7e3fe96c-b456-41dc-bda4-19d386ee4418)
 
 Once logged into the instance, follow these steps:
 
